@@ -20,4 +20,28 @@ class Place
     data_array = JSON.parse File.read(data)
     collection.insert_many(data_array)
   end
+
+  def self.find_by_short_name short_name
+    collection.find('address_components.short_name' => short_name)
+  end
+
+  def self.to_places mongo_places
+    mongo_places.map{|m_place| Place.new(m_place)}
+  end
+
+  def self.find id
+    result = collection.find(_id: BSON::ObjectId.from_string(id)).first
+    return result.nil? ? nil : Place.new(result)
+  end
+
+  def self.all(offset = 0, limit = nil)
+    result = collection.find().skip(offset)
+    result = result.limit(limit) if limit.presence
+
+    return to_places(result)
+  end
+
+  def destroy
+    self.class.collection.find(_id: BSON::ObjectId.from_string(@id)).delete_one
+  end
 end
