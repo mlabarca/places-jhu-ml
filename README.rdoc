@@ -1,28 +1,13 @@
 == README
+This project is a Coursera Assignment for  John Hopkins University's offering on ruby on rails web services and integration with mongo db: https://www.coursera.org/learn/ruby-on-rails-web-services-mongodb/ 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The main goal is implementing a back end for Places associated with
+photos using the place geo spatial coordinates. It implements several
+methods for manually querying a Mongo Database as requirements to pass assignment tests, even if many of such methods are provided by the 
+Mongoid Gem. Photos Are stored using Mongoid GridFS system. 
 
 
-Please feel free to use a different markup language if you do not plan to run
+Full instructions, requirements and steps for assignment were provided
+at this readme: 
+https://drive.google.com/file/d/0BxOTj_EJTdDGemZyd1d2WjZMUzQ/view?usp=sharing
 <tt>rake doc:app</tt>.
