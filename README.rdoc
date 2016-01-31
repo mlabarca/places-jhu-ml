@@ -10,4 +10,4 @@ Mongoid Gem. Photos Are stored using Mongoid GridFS system.
 Full instructions, requirements and steps for assignment were provided
 at this readme: 
 https://drive.google.com/file/d/0BxOTj_EJTdDGemZyd1d2WjZMUzQ/view?usp=sharing
-<tt>rake doc:app</tt>.
+
