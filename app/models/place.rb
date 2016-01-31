@@ -90,4 +90,34 @@ class Place
     docs = collection.find().aggregate(aggregate_query).to_a
     docs.map{|doc| doc[:_id].to_s}
   end
+
+
+  # Creates a 2dsphere index for location property
+  def self.create_indexes
+    collection.indexes.create_one( { "geometry.geolocation" => "2dsphere" } )
+  end
+
+  # Removes 2dsphere indexes
+  def self.remove_indexes
+    collection.indexes.drop_one("geometry.geolocation_2dsphere")
+  end
+
+  def self.near location, max_meters = nil
+    geo_query = {
+      "geometry.geolocation" => {
+        "$near" => {"$geometry" => location.to_hash} 
+      }
+    }
+    if max_meters.presence
+      geo_query["geometry.geolocation"]["$near"]["$maxDistance"] = max_meters
+    end
+    collection.find(geo_query)
+  end
+
+
+  def near max_meters = nil
+    near_places = Place.near(self.location, max_meters)
+    Place.to_places(near_places)
+  end
+
 end
