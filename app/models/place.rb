@@ -3,7 +3,7 @@ class Place
   
   def initialize params
     @id, @formatted_address = params[:_id].to_s, params[:formatted_address]
-    @address_components = params[:address_components].map {|ac| AddressComponent.new(ac)}
+    @address_components = params[:address_components].map {|ac| AddressComponent.new(ac)} if params[:address_components]
     @location = Point.new(params[:geometry][:geolocation])
   end
 
