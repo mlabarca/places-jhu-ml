@@ -32,7 +32,11 @@ class Photo
   end
 
   def place=(place_id)
-    place_id = BSON::ObjectId.from_string(place_id) if place_id.class == String
+    if place_id.class == String
+      place_id = BSON::ObjectId.from_string(place_id)
+    elsif place_id.class == Place
+      place_id = BSON::ObjectId.from_string(place_id.id) 
+    end
     @place = place_id
   end
 
