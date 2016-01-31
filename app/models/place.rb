@@ -7,7 +7,10 @@ class Place
     @address_components = params[:address_components].map {|ac| AddressComponent.new(ac)} if params[:address_components]
     @location = Point.new(params[:geometry][:geolocation])
   end
-
+  
+  def persisted?
+    !@id.nil?
+  end
 
   def self.mongo_client
     Mongoid::Clients.default
