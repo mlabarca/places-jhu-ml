@@ -41,6 +41,12 @@ class Place
     return to_places(result)
   end
 
+  def photos skip = 0, limit = nil
+    photos = Photo.find_photos_for_place(id).skip(skip)
+    photos = photos.limit(limit) if limit.presence
+    photos.map{|p| Photo.new(p)}
+  end
+
   def destroy
     self.class.collection.find(_id: BSON::ObjectId.from_string(@id)).delete_one
   end

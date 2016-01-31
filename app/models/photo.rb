@@ -94,5 +94,11 @@ class Photo
     nearest_place = nearest_place.projection(_id: 1)
     nearest_place.find.to_a.first[:_id]
   end
+  
+  # Returns a mongo view of associated photos for place id given.
+  def self.find_photos_for_place place_id
+    place_id = BSON::ObjectId.from_string(place_id)
+    mongo_client.database.fs.find("metadata.place" => place_id)
+  end
 
 end
