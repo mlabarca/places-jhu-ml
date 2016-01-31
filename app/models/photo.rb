@@ -76,6 +76,16 @@ class Photo
     self.class.mongo_client.database.fs.find(_id: BSON::ObjectId.from_string(@id)).delete_one
   end
 
+  def self.load_all
+    Dir.glob("./db/image*.jpg") do |file_name|
+      photo = Photo.new
+      file = File.open(file_name,'rb')
+      file.rewind
+      photo.contents = file
+      photo.save
+    end
+  end
+
   def self.all skip = 0, limit = nil
     docs = mongo_client.database.fs.find().skip(skip)
     docs = docs.limit(limit) if limit.presence
